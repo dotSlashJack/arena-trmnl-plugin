@@ -33,5 +33,6 @@ The channel_id section is strictly necessary.
 
 4. You should then save, at which point it will prompt you to fill in the channel name. Set this as desired (examples would be: community-news-1afxa6bjvcc, what-is-art-zyaobjea7by). You can do this even if you do not own the channel. You only need to paste the channel name from the channel's web url, not the username or other parts of the url (see help_text above).
 
+5. Save again, then go to "edit markup." Paste the exact code from the relevant .liquid size file in the trmnl_plugin_export folder. You must fill in at least one size to be able to display it.
 
 6. Save again and set this plugin as part of your trmnl's recipe!
