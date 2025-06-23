@@ -1,0 +1,46 @@
+{% comment %}Use timestamp to select a pseudo-random block{% endcomment %}
+{% assign block_count = contents | size %}
+{% assign random_index = trmnl.system.timestamp_utc | modulo: block_count %}
+{% assign selected_block = contents[random_index] %}
+
+<div class="layout">
+  <div class="columns">
+    <div class="column">
+      <div class="markdown gap--large">
+        <span class="title">
+          {% if selected_block.title and selected_block.title != "" %}
+            {{ selected_block.title }}
+          {% else %}
+            {{ selected_block.generated_title }}
+          {% endif %}
+        </span>
+        <div class="content-element content clamp--20" data-content-max-height="320">
+          {% if selected_block.class == "Text" %}
+            {% if selected_block.content and selected_block.content != "" %}
+              <p>{{ selected_block.content }}</p>
+            {% endif %}
+          {% endif %}
+          
+          {% if selected_block.description and selected_block.description != "" %}
+            <p>{{ selected_block.description }}</p>
+          {% endif %}
+          
+          {% if selected_block.source %}
+            <p style="margin-top: 10px;">
+              <small><i>Source: {{ selected_block.source.provider.name }}</i></small>
+            </p>
+          {% endif %}
+        </div>
+        
+        <div class="metadata" style="margin-top: 15px;">
+          <small>Added {{ selected_block.connected_at | date: "%B %d, %Y" }}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="title_bar">
+  <img class="image" src="https://usetrmnl.com/images/plugins/trmnl--render.svg">
+  <span class="title">{{ title }}</span>
+  <span class="instance">Are.na Channel by {{ user.username }}</span>
+</div>

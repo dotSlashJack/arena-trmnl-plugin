@@ -1,0 +1,22 @@
+---
+strategy: polling
+no_screen_padding: 'no'
+dark_mode: 'no'
+static_data: ''
+polling_verb: get
+polling_url: https://api.are.na/v2/channels/{{ channel_id }}
+polling_headers: ''
+id: 102851
+custom_fields:
+- keyname: author_bio
+  name: About This Plugin
+  field_type: author_bio
+  description: Randomly displays a block from the desired are.na channel. Created by Jack Hester. Not officially affiliated with are.na.
+- keyname: channel_id
+  field_type: string
+  placeholder: community-news-1afxa6bjvcc
+  name: Channel Name
+  description: The name of the channel you want to display random blocks from.
+  help_text: Get by taking the last part of the URL of the channel of interest. E.g. are.na/jack-hester/what-is-art-zyaobjea7by -> what-is-art-zyaobjea7by
+name: Arena (are.na) viewer
+refresh_interval: 15
