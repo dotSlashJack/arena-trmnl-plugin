@@ -6,41 +6,49 @@
 <div class="layout">
   <div class="columns">
     <div class="column">
-      <div class="markdown gap--large">
-        <span class="title">
-          {% if selected_block.title and selected_block.title != "" %}
-            {{ selected_block.title }}
-          {% else %}
-            {{ selected_block.generated_title }}
-          {% endif %}
-        </span>
-        <div class="content-element content clamp--20" data-content-max-height="320">
-          {% if selected_block.class == "Text" %}
-            {% if selected_block.content and selected_block.content != "" %}
+      <div class="markdown gap--small" style="overflow-wrap: anywhere; word-break: break-word; white-space: normal;">
+        <span class="title" style="display: block; overflow-wrap: anywhere; word-break: break-word; white-space: normal;">
+        {% if selected_block.title != "" %}
+          {{ selected_block.title }}
+        {% else %}
+          {{ selected_block.generated_title }}
+        {% endif %}
+      </span>
+        <div class="content-element content clamp--40">
+          {% if selected_block.class == "Link" %}
+            {% if selected_block.contents != "" %}
+              {% assign url = selected_block.source.url %}
+              {% if url.size > 43 %}
+                <p>{{ url | slice: 0, 20 | append: '...' | append: url | slice: -20 }}</p>
+              {% else %}
+                <p>{{ url }}</p>
+              {% endif %}
+            {% endif %}
+          
+          {% elsif selected_block.class == "Text" %}
+            {% if selected_block.content != "" %}
               <p>{{ selected_block.content }}</p>
+              {%if selected_block.image.thumb != "" %}
+                <div style="max-height: 240px; overflow: hidden;">
+                  <img src="{{ selected_block.image.thumb.url }}" alt="Link Image" style="width: 100%; height: auto; object-fit: contain;">
+                </div>
+              {% endif %}
+            {% endif %}
+
+          {% elsif selected_block.class == "Image" %}
+            {% if selected_block.contents and selected_block.image != "" %}
+              <div style="max-height: 80px; overflow: hidden;">
+                <img src="{{ selected_block.image.thumb.url }}" alt="Link Image" style="width: 100%; height: auto; object-fit: contain;">
+              </div>
             {% endif %}
           {% endif %}
-          
-          {% if selected_block.description and selected_block.description != "" %}
-            <p>{{ selected_block.description }}</p>
-          {% endif %}
-          
-          {% if selected_block.source %}
-            <p style="margin-top: 10px;">
-              <small><i>Source: {{ selected_block.source.provider.name }}</i></small>
-            </p>
-          {% endif %}
-        </div>
-        
-        <div class="metadata" style="margin-top: 15px;">
-          <small>Added {{ selected_block.connected_at | date: "%B %d, %Y" }}</small>
         </div>
       </div>
     </div>
   </div>
 </div>
 <!--<div class="title_bar">
-  <img class="image" src="https://usetrmnl.com/images/plugins/trmnl--render.svg">
+  <img class="image" src="https://raw.githubusercontent.com/dotSlashJack/arena-trmnl-plugin/refs/heads/master/arena.svg">
   <span class="title">{{ title }}</span>
   <span class="instance">Are.na Channel by {{ user.username }}</span>
 </div>-->
